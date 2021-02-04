@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var articlesRouter = require('./routes/articles');
 var app = express();
 //设置跨域
 
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/articles', articlesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,17 +46,19 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var WebSocketServer = require('ws').Server,
-wss = new WebSocketServer({ port: 8002});//服务端口8181
-wss.on('connection', function (ws) {
-    console.log('服务端：客户端已连接');
-    ws.on('message', function (message) {
-        //打印客户端监听的消息
-        console.log(message);
-    });
-    setTimeout(()=>{
-      ws.send('服务端发送的信息')
-    },5000)
+// var WebSocketServer = require('ws').Server,
+// wss = new WebSocketServer({ port: 8002});//服务端口8181
+// wss.on('connection', function (ws) {
+//     console.log('服务端：客户端已连接');
+//     ws.on('message', function (message) {
+//         //打印客户端监听的消息
+//         console.log(message);
+//     });
+//     setTimeout(()=>{
+//       ws.send('服务端发送的信息')
+//     },5000)
     
-});
+// });
+
+
 module.exports = app;

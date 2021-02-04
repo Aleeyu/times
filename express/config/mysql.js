@@ -1,5 +1,5 @@
 //mysql配置文件
-let mysql = {
+let config = {
 
     host: "localhost", //这是数据库的地址
 
@@ -11,4 +11,4 @@ let mysql = {
 
 } //好了，这样我们就能连接数据库了
 
-module.exports = mysql; //用module.exports暴露出这个接口，
+module.exports = config; //用module.exports暴露出这个接口，

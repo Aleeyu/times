@@ -25,7 +25,7 @@ class Timeline extends React.Component {
                     <div>10个月</div>
                 </div>
                 {arr.map((c)=>{
-                    return (<WingBlank size="lg">
+                    return (<WingBlank key={c} size="lg">
                     <WhiteSpace size="lg" />
                         <Card>
                             <Card.Header

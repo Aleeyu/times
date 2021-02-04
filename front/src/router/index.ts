@@ -1,12 +1,8 @@
 import Home from "../pages/home/home";
 import Info from "../pages/info/info";
-interface router {
-    path:string,
-    component:any,
-    children?:Array<router>
-}
+import { RouteProps } from 'react-router-dom';
 
-const routers:Array<router> = [
+const routers: RouteProps[] = [
     {
         path:'/',
         component:Home,
@@ -20,6 +16,10 @@ const routers:Array<router> = [
     {
         path:'/info',
         component:Info,
+    },
+    {
+        path:'/demo',
+        render: () => '11'
     }
 ]
 export default routers
