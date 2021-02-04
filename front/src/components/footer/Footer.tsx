@@ -5,8 +5,12 @@ type StateType = {
     selectedTab: string;
     hidden: boolean;
 };
+type PropsType = {
+    tabClick: (p:string)=>void;
+};
 interface Footer {
     state: StateType;
+    props: PropsType;
 }
 class Footer extends React.Component {
     constructor(props: any) {
@@ -56,6 +60,7 @@ class Footer extends React.Component {
                             this.setState({
                                 selectedTab: 'timeline',
                             });
+                            this.props.tabClick('timeline');
                         }}
                         data-seed="logId1"
                     >
@@ -71,6 +76,7 @@ class Footer extends React.Component {
                             this.setState({
                                 selectedTab: 'my',
                             });
+                            this.props.tabClick('my');
                         }}
                     >
               

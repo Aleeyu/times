@@ -2,43 +2,40 @@ import React from 'react'
 import './home.css';
 import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
-import Main from '../../components/main/main';
+import Timeline from '../../components/timeline/Timeline';
+import My from '../../components/my/my';
 type StateType = {
-    selectedTab: string;
-    hidden: boolean;
+    showTable: string;
+};
+type PropsType = {
+    showTable: string;
 };
 interface Home {
     state: StateType;
+    props: PropsType;
 }
 class Home extends React.Component {
     constructor(props: any) {
         super(props);
         this.state = {
-            selectedTab: 'timeline',
-            hidden: false,
+            showTable: 'timeline'
         };
     }
-
-    renderContentTimeline() {
-        return (
-            <div>
-           line
-            </div>
-        );
-    }
-    renderContentMy() {
-        return (
-            <div>
-           my
-            </div>
-        );
+    tabChange(x: string){
+        this.setState({
+            showTable: x
+        })
     }
     render() {
+        const showTable = this.state.showTable;
         return (
             <div className="home">
                 <Header></Header>
-                <Main></Main>
-               <Footer></Footer>
+                {showTable==='timeline'
+                    ? <Timeline></Timeline>
+                    : <My></My>
+                }
+               <Footer tabClick={(x)=>{return this.tabChange(x);}}></Footer>
             </div>
         );
     }

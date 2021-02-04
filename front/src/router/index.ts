@@ -1,4 +1,5 @@
 import Home from "../pages/home/home";
+import Info from "../pages/info/info";
 interface router {
     path:string,
     component:any,
@@ -15,6 +16,10 @@ const routers:Array<router> = [
         //         component:Demo1
         //     }
         // ]
+    },
+    {
+        path:'/info',
+        component:Info,
     }
 ]
 export default routers

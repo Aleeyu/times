@@ -1,0 +1,14 @@
+.card-item-footer{
+    display: flex;
+    display: flex;
+    justify-content: flex-end;
+}
+.card-item-footer > div{
+   margin: 0 6px;
+}
+.timeline-head{
+    margin: 20px 0 0 20px;
+}
+.timeline-head-name{
+    font-size: 20px;
+}
