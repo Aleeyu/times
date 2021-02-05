@@ -3,24 +3,18 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Child', {
-      userId: {
+    return queryInterface.createTable('Message', {
+      infoId: {
+        type: Sequelize.STRING
+      },
+      userId:{
         type: Sequelize.STRING
       },
       uuid: {
         type: Sequelize.STRING
       },
-      name: {
-        type: Sequelize.STRING
-      },
-      sex: {
-        type: Sequelize.STRING
-      },
-      birth: {
-        type: Sequelize.STRING
-      },
-      headImg: {
-        type: Sequelize.STRING
+      content: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +27,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Child');
+    return queryInterface.dropTable('Message');
   }
 };
