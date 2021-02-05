@@ -1,5 +1,22 @@
-.footer{
-   position: fixed;
-   bottom: 0;
-   width: 100%;
+.header {
+   display: flex;
+   align-items: center;
+   background: white;
+   padding: 10px;
+}
+
+.clild-item-img {
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   display: flex;
+   justify-content: center;
+   margin: 6px;
+   overflow: hidden;
+}
+.clild-item-img img{
+   max-width: 100%;
+}
+.clild-item-name {
+   text-align: center;
 }

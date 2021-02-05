@@ -20,13 +20,16 @@ class Footer extends React.Component {
             hidden: false,
         };
     }
-
-    renderContentTimeline() {
-      
+    componentDidMount(){
+       // console.log(this.props.history.location.pathname)
     }
-    renderContentMy() {
-   
+    componentDidUpdate(){
+      //  console.log(this.props.history.location.pathame)
+        
     }
+    // tabClick(path: string){
+    //     this.props.history.push(path?path:'/');
+    // }
     render() {
         return (
             <div className="footer">
@@ -86,4 +89,6 @@ class Footer extends React.Component {
         );
     }
 }
+
+// @ts-ignore
 export default Footer;

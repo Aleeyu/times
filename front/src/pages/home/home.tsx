@@ -1,12 +1,7 @@
 import React from 'react'
 import './home.css';
-import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
 import Timeline from '../../components/timeline/Timeline';
-import My from '../../components/my/my';
-import { Route } from 'react-router-dom';
-import $http from '../../libs/axios';
-import { v4 as uuidv4 } from 'uuid';
 type StateType = {
     showTable: string;
 };
@@ -26,9 +21,7 @@ class Home extends React.Component {
         };
     }
     componentDidMount(){
-        $http.get('http://localhost:8001/articles').then((d) => {
-            console.log(d)
-        })
+       
     }
     tabChange(x: string){
         this.setState({
@@ -36,16 +29,10 @@ class Home extends React.Component {
         })
     }
     render() {
-        const showTable = this.state.showTable;
-        
         return (
             <div className="home">
                 <Header></Header>
-                {showTable==='timeline'
-                    ? <Timeline></Timeline>
-                    : <Route component={My} />
-                }
-               <Footer tabClick={(x)=>{return this.tabChange(x);}}></Footer>
+                <Timeline></Timeline>
             </div>
         );
     }

@@ -1,10 +1,12 @@
 import React from 'react'
 import './my.css';
 import { List} from 'antd-mobile';
+import $http from '../../libs/axios';
+import { withRouter } from 'react-router-dom';
 type StateType = {
     selectedTab: string;
     hidden: boolean;
-    a: number;
+    user: any;
 };
 interface My {
     state: StateType;
@@ -16,19 +18,28 @@ class My extends React.Component<any, StateType> {
         this.state = {
             selectedTab: 'timeline',
             hidden: false,
-            a: 1,
+            user: {
+                nickName:'',
+                tel:''
+            },
         };
     }
+    componentDidMount(){
+        $http.get('http://localhost:8001/users').then((d) => {
+            this.setState({
+                user:d
+            })
+        })
+    }
     getinfo(){
-        console.log(this.props)
        this.props.history.push('/info');
     }
     render() {
         return (
             <div className="my">
-               <List.Item arrow="horizontal" onClick={()=>{this.getinfo()}}><div><p>昵称</p><p>1898002xxxx</p></div></List.Item>
+               <List.Item arrow="horizontal" onClick={()=>{this.getinfo()}}><div><p>{this.state.user.nickName}</p><p>{this.state.user.tel}</p></div></List.Item>
             </div>
         );
     }
 }
-export default My;
+export default withRouter(My);

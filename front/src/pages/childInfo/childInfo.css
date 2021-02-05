@@ -1,0 +1,10 @@
+.ChildInfo-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ChildInfo-img{
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+}

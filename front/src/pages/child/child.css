@@ -1,0 +1,17 @@
+.Child-item{
+    display: flex;
+    align-items: center;
+}
+.Child-img{
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+}
+.Child-name{
+    margin-left: 10px;
+}
+.Child-role{
+    margin-left: 10px;
+    font-size: 10px;
+    color: gray;
+}
