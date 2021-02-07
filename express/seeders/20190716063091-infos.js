@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert('Info', [
+        return queryInterface.bulkInsert('Infos', [
             {
                 childId:'xsadsasdassced',
                 uuid: 'xsadsswsasdassced',
@@ -12,6 +12,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete('Info', null, {});
+        return queryInterface.bulkDelete('Infos', null, {});
     }
 };
