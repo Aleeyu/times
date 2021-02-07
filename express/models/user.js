@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     sex:  DataTypes.STRING,
     birth:  DataTypes.STRING,
     headImg:  DataTypes.STRING,
+    pwd:  DataTypes.STRING,
   }, {});
   // Users.associate = function(models) {
   //   models.Users.hasMany(models.Comment)
