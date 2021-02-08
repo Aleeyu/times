@@ -14,7 +14,7 @@ var app = express();
 const config = require("./config/config");
 // app.use(cors()); 
 app.use(cors({
-  origin: ['http://localhost:3000'],//允许该域名下的请求
+  origin: ['http://localhost:3000','http://3c7h478872.zicp.vip'],//允许该域名下的请求
   methods: ["GET", "POST"],　　　　　　//　　允许接受的 请求类型
   alloweHeaders: ['Conten-Type', 'Authorization', 'Accept', 'Origin'],　　//请求头
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],

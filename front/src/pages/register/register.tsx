@@ -24,14 +24,6 @@ class Register extends React.Component<any, StateType> {
         };
     }
     componentDidMount() {
-        $http.get('http://localhost:8001/users').then((d) => {
-
-        })
-        $http.get('http://localhost:8001').then((d) => {
-            // this.setState({
-            //     user:d
-            // })
-        })
     }
     getinfo() {
         this.props.history.push('/info');
@@ -64,12 +56,8 @@ class Register extends React.Component<any, StateType> {
         }
         console.log(userinfo)
         var url = 'http://localhost:8001/users/register';
-        $http.post(url, {userinfo:userinfo}, {
-            // headers: {
-            //     'Content-Type': 'multipart/form-data'
-            // }
-        }).then((json) => {
-            console.log(json);
+        $http.post(url, {userinfo:userinfo}).then((json) => {
+            this.props.history.push('/login');
         }).catch();
     }
     render() {

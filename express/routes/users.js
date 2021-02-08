@@ -9,12 +9,12 @@ const { v4: v4 } = require('uuid');
 router.get('/', async function (req, res, next) {
   console.log('获取用户信息sessid为',req.session && req.session.session_id);
   if (req.session && req.session.session_id) {  /*获取*/
-    const where = {};
-    where.uuid === 'sadasdasdasxcxzv';
+    let where = {};
+    where.uuid = req.session.session_id;
     var result = await models.Users.findOne({
       where: where
     });
-    
+    console.log(111111,result)
     res.json(result);
   } else {
     res.json({

@@ -26,6 +26,8 @@ class Index extends React.Component {
             this.setState({
                 user: d
             })
+        }).catch((e)=>{
+          
         })
     }
     tabChange(x: string) {
