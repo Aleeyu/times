@@ -24,14 +24,7 @@ class Login extends React.Component<any, StateType> {
         };
     }
     componentDidMount() {
-        $http.get('http://localhost:8001/users').then((d) => {
 
-        })
-        $http.get('http://localhost:8001').then((d) => {
-            // this.setState({
-            //     user:d
-            // })
-        })
     }
     getinfo() {
         this.props.history.push('/info');
@@ -62,13 +55,7 @@ class Login extends React.Component<any, StateType> {
             tel:this.state.phone,
             pwd:this.state.ps
         }
-        console.log(userinfo)
-        var url = 'http://localhost:8001/users/login';
-        $http.post(url, {userinfo:userinfo}, {
-            // headers: {
-            //     'Content-Type': 'multipart/form-data'
-            // }
-        }).then((json) => {
+        $http.post('/login', {userinfo:userinfo}).then((json) => {
             console.log(json);
             this.props.history.push('/');
         }).catch();

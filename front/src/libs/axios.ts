@@ -1,5 +1,8 @@
 import axios from "axios";
+import config from "../config/index";
 //axios拦截器
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = config.host;
 const $http = axios.create({
   headers: {
     'content-type': 'application/json'
@@ -12,7 +15,7 @@ $http.interceptors.request.use(
     if (token ) { // 判断是否存在token，如果存在的话，则每个http header都加上token
       config.headers.authorization = token  //请求头加上token
     }
-    config.headers['test'] = 'asdasd'
+    // config.headers['test'] = 'asdasd'
     return config
   },
   (  err: any) => {
@@ -23,7 +26,14 @@ $http.interceptors.response.use(
   (  response: { status: number; data: any; }) => {
     //拦截响应，做统一处理 
     if (response.status===200) {
-      return response.data
+      console.log( response.data)
+      if(response.data&&response.data.code==='001'){
+        // 为登录
+        window.location.href="./login"
+      }else {
+        return response.data
+      }
+     
     }
     
   },

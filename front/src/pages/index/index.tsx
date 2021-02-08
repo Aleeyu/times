@@ -3,6 +3,7 @@ import './index.css';
 import Footer from '../../components/footer/Footer';
 import My from "../my/my";
 import Timeline from '../../components/timeline/Timeline';
+import $http from '../../libs/axios';
 type StateType = {
     path: string;
 };
@@ -21,7 +22,11 @@ class Index extends React.Component {
         };
     }
     componentDidMount() {
-        //console.log(this.props.history.location.pathname)
+        $http.get('/users').then((d) => {
+            this.setState({
+                user: d
+            })
+        })
     }
     tabChange(x: string) {
         this.setState({

@@ -1,6 +1,6 @@
 import React from 'react'
 import './my.css';
-import { List, ImagePicker } from 'antd-mobile';
+import { List, ImagePicker,Button } from 'antd-mobile';
 import $http from '../../libs/axios';
 import { withRouter } from 'react-router-dom';
 type StateType = {
@@ -34,11 +34,6 @@ class My extends React.Component<any, StateType> {
                 user: d
             })
         })
-        $http.get('http://localhost:8001').then((d) => {
-            // this.setState({
-            //     user:d
-            // })
-        })
     }
     getinfo() {
         this.props.history.push('/info');
@@ -48,6 +43,12 @@ class My extends React.Component<any, StateType> {
         this.setState({
             files:files
         });
+    }
+    logout(){
+        $http.post('/logout').then((json) => {
+            console.log(json);
+            this.props.history.push('/');
+        }).catch();
     }
     upload() {
         console.log(this.state.files)
@@ -79,6 +80,9 @@ class My extends React.Component<any, StateType> {
                 />
                 <button onClick={() => { this.upload() }}>sadasdasdas</button>
                 <List.Item arrow="horizontal" onClick={() => { this.getinfo() }}><div><p>{this.state.user.nickName}</p><p>{this.state.user.tel}</p></div></List.Item>
+                <div className="login-btn">
+                    <Button type="primary" onClick={() => { this.logout() }}>logout</Button>
+                </div>
             </div>
         );
     }

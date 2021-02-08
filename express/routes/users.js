@@ -3,53 +3,31 @@ var router = express.Router();
 var models = require('../models');
 const account = models.Users;
 var md5 = require('md5-node');
-const utility  = require('utility');
-const { v4: uuidv4, v4 } = require('uuid');
+const { v4: v4 } = require('uuid');
+
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
-  const where={};
-  where.uuid === 'sadasdasdasxcxzv';
-  var result = await models.Users.findAndCountAll({
-    where: where
-  });
-
-  res.json(result.rows[0]);
-});
-router.post('/login',async function(req, res) {
-  // 用户注册
-  const body = req.body.userinfo
-  const {tel, pwd} = req.body.userinfo;
-
-  const data = {
-    tel: tel,
-    pwd: md5(pwd)
-  }
-  console.log(data);
-
-  const where={pwd:data.pwd};
-  where.uuid === 'sadasdasdasxcxzv';
-  var result = await models.Users.findAndCountAll({
-    where: where
-  });
-  console.log('--------------')
-  console.log(result)
-  if(result.rows.length>0){
-    res.json({
-      code: 0,
-      data: result.rows[0]
-    })
+  console.log('获取用户信息sessid为',req.session && req.session.session_id);
+  if (req.session && req.session.session_id) {  /*获取*/
+    const where = {};
+    where.uuid === 'sadasdasdasxcxzv';
+    var result = await models.Users.findOne({
+      where: where
+    });
+    
+    res.json(result);
   } else {
     res.json({
-      code: 0,
-      data: 'error'
-    })
+      code:'001',
+     data:"未登录"
+    });
   }
 
-})
-router.post('/register', function(req, res) {
+});
+router.post('/register', function (req, res) {
   // 用户注册
   const body = req.body.userinfo
-  const {tel, pwd} = req.body.userinfo;
+  const { tel, pwd } = req.body.userinfo;
 
   const data = {
     tel: tel,
@@ -60,7 +38,7 @@ router.post('/register', function(req, res) {
   }
   console.log(data)
   account.create(data).then(doc => {
-    const {tel, uuid} = doc
+    const { tel, uuid } = doc
     res.cookie('user_id', uuid)
     return res.json({
       code: 0,
