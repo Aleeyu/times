@@ -7,11 +7,42 @@ var session = require("express-session");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var articlesRouter = require('./routes/articles');
+var childRouter = require('./routes/child');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
 var cors = require('cors');
 var app = express();
 const config = require("./config/config");
+var history =require('connect-history-api-fallback');
+
+app.use(history({
+  rewrites: [
+    {//访问路径含dist则继续访问
+      from: /^\/dist\/.*$/,
+      to: function(context) {
+        return context.parsedUrl.pathname;
+      }
+    },
+    {//访问路径含dist则继续访问
+      from: /^\/images\/.*$/,
+      to: function(context) {
+        return context.parsedUrl.pathname;
+      }
+    },
+    {//后缀为js|css 访问dist下相应文件
+      from: /^\/.*[js|css]$/,
+      to: function(context) {
+        return '/dist/'+context.parsedUrl.pathname;
+      }
+    },
+    {//访问路径不含dist则默认访问/dist/index.html
+      from: /^\/.*$/,
+      to: function(context) {
+        return '/dist/';
+      }
+    },
+  ]
+}));
 // app.use(cors()); 
 app.use(cors({
   origin: ['http://localhost:3000','http://3c7h478872.zicp.vip'],//允许该域名下的请求
@@ -62,6 +93,7 @@ app.use(multer({ dest: './public/images' }).any())
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
+app.use('/child', childRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

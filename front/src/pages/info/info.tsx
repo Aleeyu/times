@@ -31,7 +31,7 @@ class Info extends React.Component {
 
     }
     getUserInfo(){
-        $http.get('http://localhost:8001/users').then((d) => {
+        $http.get('/users').then((d) => {
             this.setState({
                 user:d
             })

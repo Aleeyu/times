@@ -1,0 +1,15 @@
+.index-upload{
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    font-size: 60px;
+    z-index: 2;
+    color: yellow;
+}
+.index-modal{
+    height: 50vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

@@ -26,7 +26,6 @@ $http.interceptors.response.use(
   (  response: { status: number; data: any; }) => {
     //拦截响应，做统一处理 
     if (response.status===200) {
-      console.log( response.data)
       if(response.data&&response.data.code==='001'){
         // 为登录
         window.location.href="./login"

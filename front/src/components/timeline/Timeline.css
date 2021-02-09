@@ -12,3 +12,22 @@
 .timeline-head-name{
     font-size: 20px;
 }
+.timeline-item>div:first-child{
+    width: 70%;
+}
+.timeline-item{
+    height: 376px;
+    overflow: hidden;
+}
+.timeline-item>div{
+    float: left;
+  width: 30%;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+}
+.timeline-item>div>video,.timeline-item>div>img{
+    max-width: 100%;
+}
+.clear{
+    clear: both;
+}

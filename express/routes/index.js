@@ -6,9 +6,8 @@ const fs = require('fs');
 const { v4 } = require('uuid');
 const config = require("../config/config");
 var md5 = require('md5-node');
+var moment = require('moment');
 router.post('/login', async function (req, res) {
-  // 用户注册
-  const body = req.body.userinfo
   const { tel, pwd } = req.body.userinfo;
 
   const data = {
@@ -16,8 +15,7 @@ router.post('/login', async function (req, res) {
     pwd: md5(pwd)
   }
 
-  const where = { pwd: data.pwd };
-  where.uuid === 'sadasdasdasxcxzv';
+  const where = {tel:tel, pwd: data.pwd };
   var result = await models.Users.findAndCountAll({
     where: where
   });
@@ -72,9 +70,9 @@ router.get('/', async function (req, res, next) {
 // 文件上传接口
 
 
-function check(dir,callback){
+function check(path,dir,callback){
   let flag = false;
-  fs.readdir('public/images/children',function(err,files){
+  fs.readdir(path,function(err,files){
     console.log(files)
 
     const index = files.findIndex((i)=>{
@@ -95,23 +93,37 @@ function addImg(req,filename,res){
       res.send(err)
     }else{
      res.send({
-       info:"success"
+       code:'003',
+       data:"success"
      })
     }
   })
 }
 router.post('/fileUpload', function(req, res){
-  // 上传的文件在req.files中
+  // 上传的文件在req.files中  
   // 用childid查找children目录中是否有文件夹chilid，没有就先创建
   let childId = req.body.childId;
-  const filename = 'public/images/children/'+childId+'/'+v4()+pathLib.parse(req.files[0].originalname).ext
-  console.log(filename);
-  check(childId,(falg)=>{
+  const mydate = moment(new Date()).format().split('T')[0];
+  const filename = 'public/images/children/'+childId+'/'+mydate+'/'+v4()+pathLib.parse(req.files[0].originalname).ext
+  // 查看是否有某个小孩id的文件夹
+  check('public/images/children',childId,(falg)=>{
     if(falg){
-      addImg(req,filename,res)
+      // 查询到某个文件夹了，继续查找有没有当前日期的文件夹
+      check('public/images/children/'+childId,mydate,(f)=>{
+          if(f){
+            // 找到了文件夹
+            addImg(req,filename,res)
+          } else {
+            // 没找到当天文件夹
+            // 创建文件夹
+            fs.mkdir('public/images/children/'+childId+'/'+mydate, {recursive: true}, (err) => {
+              addImg(req,filename,res)
+          });
+          }
+      })
     } else {
       // 创建文件夹
-      fs.mkdir('public/images/children/'+childId, {recursive: true}, (err) => {
+      fs.mkdir('public/images/children/'+childId+'/'+mydate, {recursive: true}, (err) => {
         addImg(req,filename,res)
     });
     }

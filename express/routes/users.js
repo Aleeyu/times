@@ -7,14 +7,12 @@ const { v4: v4 } = require('uuid');
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
-  console.log('获取用户信息sessid为',req.session && req.session.session_id);
   if (req.session && req.session.session_id) {  /*获取*/
     let where = {};
     where.uuid = req.session.session_id;
     var result = await models.Users.findOne({
       where: where
     });
-    console.log(111111,result)
     res.json(result);
   } else {
     res.json({
@@ -36,7 +34,6 @@ router.post('/register', function (req, res) {
     createdAt: new Date().getTime(),
     uuid: v4()
   }
-  console.log(data)
   account.create(data).then(doc => {
     const { tel, uuid } = doc
     res.cookie('user_id', uuid)

@@ -1,5 +1,6 @@
 import React from 'react'
 import './Header.css';
+import $http from '../../libs/axios';
 type StateType = {
     childList: Array<any>;
 };
@@ -11,13 +12,6 @@ class Header extends React.Component {
         super(props);
         this.state = {
             childList: [
-                {
-                    name: 'child1',
-                    uuid: 'xxnnxx',
-                    type: 'item',
-                    headImg: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-                    selected: true
-                },
                 {
                     name: '添加',
                     uuid: 'dfcvf',
@@ -35,12 +29,26 @@ class Header extends React.Component {
             ],
         };
     }
-
-    renderContentTimeline() {
-
+    componentDidMount(){
+        this.getChildInfo();
     }
-    renderContentMy() {
-
+    getChildInfo(){
+        
+        $http.get('/child',{params:{uuid:'85735e52-3887-4507-8ba7-87b4fc792122'}}).then((d) => {
+            let arr = [...this.state.childList];
+            arr.unshift({
+                name: d.data.name,
+                uuid: d.data.uuid,
+                type: 'item',
+                headImg: d.data.headImg,
+                selected: true
+            })
+            this.setState({
+                childList:arr
+            })
+        }).catch((e)=>{
+          
+        })
     }
     render() {
         return (

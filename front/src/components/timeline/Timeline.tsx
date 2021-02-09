@@ -3,9 +3,14 @@ import './Timeline.css';
 import { Card, WhiteSpace ,WingBlank} from 'antd-mobile';
 import Header from '../header/Header';
 import { withRouter } from 'react-router-dom';
+import $http from '../../libs/axios';
+import config from '../../config';
+
 type StateType = {
     selectedTab: string;
     hidden: boolean;
+    name: string;
+    list: Array<any>;
 };
 type PropsType = {
     tabClick: (p:string)=>void;
@@ -21,30 +26,59 @@ class Timeline extends React.Component<any, StateType> {
         this.state = {
             selectedTab: 'timeline',
             hidden: false,
+            name:'',
+            list:[]
         };
+    }
+    componentDidMount(){
+        this.getChildInfo();
+        this.getChildInfoList();
+    }
+    getChildInfoList(){
+        $http.get('/child/list',{params:{uuid:'85735e52-3887-4507-8ba7-87b4fc792122'}}).then((d) => {
+            this.setState({
+                list:d.data
+            })
+        }).catch((e)=>{
+          
+        })
+    }
+    getChildInfo(){
+        $http.get('/child',{params:{uuid:'85735e52-3887-4507-8ba7-87b4fc792122'}}).then((d) => {
+            this.setState({
+                name:d.data.name
+            })
+        }).catch((e)=>{
+          
+        })
     }
     handleClick(){
         this.props.history.push('/child')
     }
     render() {
-        const arr = [1,2,3,4,5];
         return (
             <div className="timeline">
                 <Header></Header>
                 <div className="timeline-head" onClick={this.handleClick.bind(this)}>
-                    <div className="timeline-head-name">刘德华</div>
+                    <div className="timeline-head-name">{this.state.name}</div>
                     <div>10个月</div>
                 </div>
-                {arr.map((c)=>{
-                    return (<WingBlank key={c} size="lg">
+                {this.state.list.map((c)=>{
+                    return (<WingBlank key={c.date} size="lg">
                     <WhiteSpace size="lg" />
                         <Card>
                             <Card.Header
                                 title="9个月30天"
-                                extra={<span>2021年2月31</span>}
+                                extra={<span>{c.date}</span>}
                             />
                             <Card.Body>
-                                <div className="timeline-item"><img src="https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png" alt=""/></div>
+                                <div className="timeline-item">
+                                    {c.url.map((f: string)=>{
+                                        return (f.split('.')[1]==='jpg'?<div key={f}><img src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f} alt=""/></div>:<div key={f}><video src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f}></video></div>)
+                                    })
+                                    }
+                                    <div className="clear"></div>
+                                </div>
                             </Card.Body>
                             <Card.Footer content="爷爷" extra={<div className="card-item-footer"><div className="card-item-footer-dianzan"><i className="icon iconfont icondianzan"></i><span>1</span></div><div className="card-item-footer-message"><i className="icon iconfont iconxiaoxi"></i><span>3</span></div></div>} />
                         </Card>
