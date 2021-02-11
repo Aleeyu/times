@@ -14,10 +14,10 @@
 }
 .timeline-item>div:first-child{
     width: 70%;
-    height: 280px;
+    height: 300px;
 }
 .timeline-item{
-    height: 280px;
+    height: 300px;
     overflow: hidden;
 }
 .timeline-item>div{

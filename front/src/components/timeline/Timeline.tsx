@@ -56,6 +56,8 @@ class Timeline extends React.Component<any, StateType> {
         this.props.history.push('/child')
     }
     render() {
+        var isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        console.log(isiOS)
         return (
             <div className="timeline">
                 <Header></Header>
@@ -74,7 +76,12 @@ class Timeline extends React.Component<any, StateType> {
                             <Card.Body>
                                 <div className="timeline-item">
                                     {c.url.map((f: string)=>{
-                                        return (f.split('.')[1]==='jpg'?<div key={f}><img src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f} alt=""/></div>:<div key={f}><video poster={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f+'?x-oss-process=video/snapshot,t_50,f_jpg,w_400,h_350'} preload="auto" width="100%"><source src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f} type="video/mp4"/></video></div>)
+                                        if(isiOS){
+                                            return (f.split('.')[1]==='jpg'?<div key={f}><img src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f} alt=""/></div>:<div key={f}><video poster={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f+'?x-oss-process=video/snapshot,t_50,f_jpg,w_400,h_350'} preload="auto" width="100%"><source src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f} type="video/mp4"/></video></div>)
+                                        }else {
+                                            return (f.split('.')[1]==='jpg'?<div key={f}><img src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f} alt=""/></div>:<div key={f}><video preload="auto" autoPlay={true} width="100%"><source src={config.host+'/images/children/'+c.childId+'/'+c.date+'/'+f} type="video/mp4"/></video></div>)
+                                        }
+                                        
                                     })
                                     }
                                     <div className="clear"></div>
