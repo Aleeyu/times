@@ -14,9 +14,10 @@
 }
 .timeline-item>div:first-child{
     width: 70%;
+    height: 280px;
 }
 .timeline-item{
-    height: 376px;
+    height: 280px;
     overflow: hidden;
 }
 .timeline-item>div{
@@ -24,6 +25,8 @@
   width: 30%;
   box-sizing: border-box;
   border: 2px solid transparent;
+  height: 100px;
+  overflow: hidden;
 }
 .timeline-item>div>video,.timeline-item>div>img{
     max-width: 100%;
